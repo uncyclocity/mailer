@@ -20,7 +20,7 @@ router.get("/mail", async function (req, res, next) {
       return _page.open("http://www.shift.co.kr/");
     })
     .then((status) => {
-      return _page.render("test.png");
+      return _page.render("today.png");
     })
     .then((status) => {
       return _page.close();
@@ -32,7 +32,14 @@ router.get("/mail", async function (req, res, next) {
   let emailParam = {
     toEmail: email,
     subject: "nodemailer 테스트",
-    text: "성공!",
+    html: "<img src='cid:today' width='800px'>",
+    attachments: [
+      {
+        filename: "today.png",
+        path: "./today.png",
+        cid: "today",
+      },
+    ],
   };
 
   mailer.sendGmail(emailParam);
