@@ -1,0 +1,8 @@
+{
+  "isRunServer": true,
+  "URL": "http://www.shift.co.kr/",
+  "receiver": [
+    { "name": "이성범", "email": "dl2qja@gmail.com" },
+    { "name": "이성범", "email": "dl2qja@gmail.com" }
+  ]
+}

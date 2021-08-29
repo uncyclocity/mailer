@@ -8,6 +8,10 @@ const Styles = styled.div`
   margin: 0 auto;
   height: 100%;
 
+  &:first-child {
+    margin-top: 30px;
+  }
+
   &:last-child {
     margin-bottom: 30px;
   }

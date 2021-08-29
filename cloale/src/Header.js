@@ -1,4 +1,4 @@
-import { SiMailDotRu } from "react-icons/si";
+import { RiMailSendLine } from "react-icons/ri";
 import StHeader from "./style/StHeader";
 
 export default function Header() {
@@ -6,7 +6,7 @@ export default function Header() {
     <StHeader>
       <div className="logo_area">
         <div className="logo_icon">
-          <SiMailDotRu />
+          <RiMailSendLine />
         </div>
         <div className="logo_text">Cloale</div>
       </div>

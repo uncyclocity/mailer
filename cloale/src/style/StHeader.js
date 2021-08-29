@@ -8,8 +8,10 @@ const Styles = styled.div`
     .logo_icon {
       color: #fd7e00;
       font-size: 50px;
-      margin-right: 5px;
+      margin-top: 2.5px;
+      margin-right: 10px;
     }
+
     .logo_text {
       color: #fd7e00;
       font-size: 50px;
