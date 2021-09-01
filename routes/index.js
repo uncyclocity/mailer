@@ -8,25 +8,31 @@ var moment = require("moment");
 require("moment-timezone");
 moment.tz.setDefault("Asia/Seoul");
 
+let email_subject = `${moment().format("MM/DD")}일자 ${renderURL} 현황`;
+
+let email_html = `<div><b>${moment().format(
+  "YYYY년 MM월 DD일 HH시 mm분"
+)} ${renderURL}</b> 웹페이지의 현황입니다.</div><img src='cid:today' width='800px'>`;
+
+let email_attachments = [
+  {
+    filename: "today.png",
+    path: `../../incompanyproject/mailer/screenshot/screenshot_${moment().format(
+      "YYMMDD"
+    )}.png`,
+    cid: "today",
+  },
+];
+
 let emailParam = {
   toEmail: emails,
-  subject: `${moment().format("MM/DD")}일자 ${renderURL} 현황`,
-  html: `<div><b>${moment().format(
-    "YYYY년 MM월 DD일 HH시 mm분"
-  )} ${renderURL}</b> 웹페이지의 현황입니다.</div><img src='cid:today' width='800px'>`,
-  attachments: [
-    {
-      filename: "today.png",
-      path: `../../incompanyproject/mailer/screenshot/screenshot_${moment().format(
-        "YYMMDD"
-      )}.png`,
-      cid: "today",
-    },
-  ],
+  subject: email_subject,
+  html: email_html,
+  attachments: email_attachments,
 };
 
 router.get("/", function (req, res) {
-  res.send("mailer가 정상적으로 작동중입니다 😉");
+  res.send("mailer 서버 작동 중...");
 });
 
 const sendProcess = async () => {
