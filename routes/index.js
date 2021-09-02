@@ -8,7 +8,7 @@ require("moment-timezone");
 moment.tz.setDefault("Asia/Seoul");
 
 // 이메일 요소
-const emails = require("../emails_test.json");
+const emails = require("../emaildata/emails_test.json");
 let email_subject = `${moment().format("MM/DD")}일자 ${renderURL} 현황`;
 let email_html = `<div><b>${moment().format(
   "YYYY년 MM월 DD일 HH시 mm분"
@@ -23,7 +23,7 @@ let email_attachments = [
   },
 ];
 
-// mailSender.sendGmail 함수에 전달 될 파라미터
+// mailSender.sendShiftMail 함수에 전달 될 파라미터
 let emailParam = {
   toEmail: emails,
   subject: email_subject,
@@ -70,8 +70,8 @@ const sendProcess = async () => {
 
     console.log("스크린샷 생성 프로세스 종료");
 
-    // 이메일 전송 역할의 sendGmail을 실행
-    mailer.sendGmail(emailParam);
+    // 이메일 전송 역할의 sendShiftMail을 실행
+    mailer.sendShiftMail(emailParam);
   } catch (e) {
     console.error(e);
   }
