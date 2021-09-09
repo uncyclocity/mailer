@@ -1,8 +1,10 @@
 const nodemailer = require("nodemailer");
 const senderInfo = require("../config/senderInfo.json");
+var cnt = 0;
+var tmpCnt = 0;
 
 const mailSender = {
-  sendShiftMail: function (param) {
+  sendShiftMail: async function (param) {
     console.log("이메일 전송 프로세스 시작");
 
     // 메일 서비스, 포트 번호, 호스트, 보내는 이의 ID/PW 등의 내용이 저장되고,
@@ -11,7 +13,7 @@ const mailSender = {
       host: "mail.shift.co.kr",
       secure: false,
       requireTLS: true,
-      port: 25,
+      port: 425,
       auth: {
         user: senderInfo.user,
         pass: senderInfo.pass,
@@ -31,15 +33,27 @@ const mailSender = {
     };
 
     // 이메일 전송 부분
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
+    // 오류가 뜨면 최대 5번까지 재실행한다.
+    while (cnt < 5) {
+      try {
+        tmpCnt = cnt;
+        await transporter.sendMail(mailOptions);
+      } catch (e) {
+        cnt++;
         console.log("이메일 전송 프로세스 비정상 종료");
-      } else {
-        console.log(info);
-        process.exit(0);
+        console.error(e);
+        if (cnt >= 5) {
+          process.exit(1);
+        } else {
+          console.log("재실행 중...");
+        }
+      } finally {
+        if (cnt === tmpCnt) {
+          console.log("이메일 전송 프로세스 종료");
+          process.exit(0);
+        }
       }
-    });
+    }
   },
 };
 
